@@ -40,4 +40,4 @@ print('opt:')
 print(model.opt)
 print('val losses:')
 print(model.val_losses)
-
+print(model.modules)

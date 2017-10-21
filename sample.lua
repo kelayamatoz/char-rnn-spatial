@@ -3,7 +3,7 @@
 
 This file samples characters from a trained model
 
-Code is based on implementation in 
+Code is based on implementation in
 https://github.com/oxford-cs-ml-2015/practical6
 
 ]]--
@@ -132,6 +132,9 @@ else
     if opt.gpuid >= 0 and opt.opencl == 0 then prediction = prediction:cuda() end
     if opt.gpuid >= 0 and opt.opencl == 1 then prediction = prediction:cl() end
 end
+
+-- print out stats of char-rnn
+
 
 -- start sampling/argmaxing
 for i=1, opt.length do
