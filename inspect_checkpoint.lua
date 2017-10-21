@@ -33,11 +33,10 @@ if opt.gpuid >= 0 and opt.opencl == 1 then
     require 'clnn'
     cltorch.setDevice(opt.gpuid + 1)
 end
-
 local model = torch.load(opt.model)
 
 print('opt:')
 print(model.opt)
 print('val losses:')
 print(model.val_losses)
-print(model.modules)
+print(model:parameters())

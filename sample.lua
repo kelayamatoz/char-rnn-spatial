@@ -28,7 +28,7 @@ cmd:argument('-model','model checkpoint to use for sampling')
 cmd:option('-seed',123,'random number generator\'s seed')
 cmd:option('-sample',1,' 0 to use max at each timestep, 1 to sample at each timestep')
 cmd:option('-primetext',"",'used as a prompt to "seed" the state of the LSTM using a given sequence, before we sample.')
-cmd:option('-length',2000,'number of characters to sample')
+cmd:option('-length',20,'number of characters to sample')
 cmd:option('-temperature',1,'temperature of sampling')
 cmd:option('-gpuid',0,'which gpu to use. -1 = use CPU')
 cmd:option('-opencl',0,'use OpenCL (instead of CUDA)')
@@ -133,9 +133,6 @@ else
     if opt.gpuid >= 0 and opt.opencl == 1 then prediction = prediction:cl() end
 end
 
--- print out stats of char-rnn
-
-
 -- start sampling/argmaxing
 for i=1, opt.length do
 
@@ -159,6 +156,26 @@ for i=1, opt.length do
     prediction = lst[#lst] -- last element holds the log probabilities
 
     io.write(ivocab[prev_char[1]])
+    if i == opt.length - 1 then
+    -- print the structure of the model
+      print("--printing weights of each module--")
+      print(protos.rnn:parameters())
+
+    -- print the weights of specified layers
+      print("--printing weights of each module with respect to the node name--")
+      for _, node in ipairs(protos.rnn.forwardnodes) do
+        name = node.data.annotations.name
+        if name == 'i2h_1' or name == 'i2h_2' or name == 'h2h_1' or name == 'h2h_2' or name == 'decoder' then
+          print("node name:")
+          print(name)
+          print("weight size:")
+          print(node.data.module.weight:size())
+          torch.save(name..'-weight.csv', node.data.module.weight, ascii, false)
+          print("bias size:")
+          print(node.data.module.bias:size())
+          torch.save(name..'-bias.csv', node.data.module.weight, ascii, false)
+        end
+      end
+    end
 end
 io.write('\n') io.flush()
-
