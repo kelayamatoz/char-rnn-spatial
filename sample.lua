@@ -13,6 +13,7 @@ require 'nn'
 require 'nngraph'
 require 'optim'
 require 'lfs'
+require 'csvigo'
 
 require 'util.OneHot'
 require 'util.misc'
@@ -166,14 +167,17 @@ for i=1, opt.length do
       for _, node in ipairs(protos.rnn.forwardnodes) do
         name = node.data.annotations.name
         if name == 'i2h_1' or name == 'i2h_2' or name == 'h2h_1' or name == 'h2h_2' or name == 'decoder' then
+          weight = node.data.module.weight
+          bias = node.data.module.bias
           print("node name:")
           print(name)
           print("weight size:")
-          print(node.data.module.weight:size())
-          torch.save(name..'-weight.csv', node.data.module.weight, ascii, false)
+          print(weight:size())
           print("bias size:")
-          print(node.data.module.bias:size())
-          torch.save(name..'-bias.csv', node.data.module.weight, ascii, false)
+          print(bias:size())
+
+          csvigo.save(name..'-weight.csv', torch.totable(weight))
+          csvigo.save(name..'-bias.csv', torch.totable(weight))
         end
       end
     end
