@@ -1,0 +1,88 @@
+using CUDA on GPU 0...	
+Make sure that your saved checkpoint was also trained with GPU. If it was trained with CPU use -gpuid -1 for sampling as well	
+creating an lstm...	
+missing seed text, using uniform probability over first character	
+--------------------------	
+grament,
+More than --printing weights of each module--	
+{
+  1 : CudaTensor - size: 2048x65
+  2 : CudaTensor - size: 2048
+  3 : CudaTensor - size: 2048x512
+  4 : CudaTensor - size: 2048
+  5 : CudaTensor - size: 2048x512
+  6 : CudaTensor - size: 2048
+  7 : CudaTensor - size: 2048x512
+  8 : CudaTensor - size: 2048
+  9 : CudaTensor - size: 65x512
+  10 : CudaTensor - size: 65
+}
+{
+  1 : CudaTensor - size: 2048x65
+  2 : CudaTensor - size: 2048
+  3 : CudaTensor - size: 2048x512
+  4 : CudaTensor - size: 2048
+  5 : CudaTensor - size: 2048x512
+  6 : CudaTensor - size: 2048
+  7 : CudaTensor - size: 2048x512
+  8 : CudaTensor - size: 2048
+  9 : CudaTensor - size: 65x512
+  10 : CudaTensor - size: 65
+}
+--printing weights of each module with respect to the node name--	
+node name:	
+i2h_1	
+weight size:	
+ 2048
+   65
+[torch.LongStorage of size 2]
+
+bias size:	
+ 2048
+[torch.LongStorage of size 1]
+
+node name:	
+h2h_1	
+weight size:	
+ 2048
+  512
+[torch.LongStorage of size 2]
+
+bias size:	
+ 2048
+[torch.LongStorage of size 1]
+
+node name:	
+i2h_2	
+weight size:	
+ 2048
+  512
+[torch.LongStorage of size 2]
+
+bias size:	
+ 2048
+[torch.LongStorage of size 1]
+
+node name:	
+h2h_2	
+weight size:	
+ 2048
+  512
+[torch.LongStorage of size 2]
+
+bias size:	
+ 2048
+[torch.LongStorage of size 1]
+
+node name:	
+decoder	
+weight size:	
+  65
+ 512
+[torch.LongStorage of size 2]
+
+bias size:	
+ 65
+[torch.LongStorage of size 1]
+
+i
